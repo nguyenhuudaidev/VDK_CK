@@ -11,7 +11,7 @@ const int CMD_BRIGHT = 0x01;
 const int CMD_DARK   = 0x02;
 
 // Ngưỡng ánh sáng
-int lightThreshold = 500;
+int lightThreshold = 600;
 
 // ================= SETUP =================
 void setup() {
@@ -28,7 +28,6 @@ void loop() {
 
   int lightValue = analogRead(LDR_PIN);
 
-  Serial.print("Light: ");
   Serial.println(lightValue);
 
   // =========================
@@ -37,6 +36,7 @@ void loop() {
   if (lightValue < lightThreshold) {
 
     IrSender.sendNEC(MY_ADDRESS, CMD_BRIGHT, 0);
+    Serial.println("Bright");
 
     Serial.println("SEND FORWARD");
   }
@@ -47,6 +47,7 @@ void loop() {
   else {
 
     IrSender.sendNEC(MY_ADDRESS, CMD_DARK, 0);
+    Serial.println("Dark");
 
     Serial.println("SEND BACKWARD");
   }
